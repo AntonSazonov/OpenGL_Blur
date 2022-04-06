@@ -8,4 +8,4 @@ cmake -B build .
 cmake --build build
 ```
 
-![alt text](https://github.com/AntonSazonov/OpenGL_GLSL_Blur/blob/master/screenshot.png?raw=true)
+![alt text](https://github.com/AntonSazonov/OpenGL_GLSL_Blur/blob/master/images/screenshot.png?raw=true)
