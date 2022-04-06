@@ -1,5 +1,9 @@
 # OpenGL GLSL Blur Example
 
+Clone:
+`git clone --recurse-submodules https://github.com/AntonSazonov/OpenGL_GLSL_Blur.git`
+
+
 Build with CMake:
 ```
 cmake -B build .
