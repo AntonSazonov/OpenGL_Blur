@@ -1,8 +1,5 @@
 ﻿
-//#include <cassert>
 #include <cstdio>
-//#include <memory>
-//#include <functional>
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -22,15 +19,12 @@ using namespace san;
 class window : public gl::window {
 	float				m_max_fps	= 0.f;
 
-	glm::ivec2			m_size;
-
 	gl::vao_quad		m_quad;	// dummy quad
 
 	gl::framebuffer		m_fb1;
 	gl::framebuffer		m_fb2;
 
 	gl::shader::vert	m_vert;
-	//gl::shader::vert_default	m_vert;
 	gl::shader::frag	m_frag;
 	gl::shader::prog	m_prog;
 
@@ -38,18 +32,18 @@ class window : public gl::window {
 
 public:
 	window( const glm::ivec2 & size )
-		: gl::window( size, "OpenGL Blur Test. Photo by Sophie Turner on Unsplash (https://unsplash.com/photos/LZVmvKlchM0)" )
-		, m_size( size )
+		: gl::window( size, "OpenGL Blur Example. Photo by Sophie Turner on Unsplash (https://unsplash.com/photos/LZVmvKlchM0)" )
 		, m_fb1( size )
 		, m_fb2( size )
 	{
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
-		ImGui::GetIO().IniFilename = nullptr; // "111.ini";
+		ImGui::GetIO().IniFilename = nullptr; // disable use of ini-file for ImGui.
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL( gl::window::get_window(), true );
 		ImGui_ImplOpenGL3_Init( "#version 130" );
 
+		// load texture...
 		if ( !gl::load_texture( m_fb1.get_tex(), m_fb1.get_size(), "sophie-turner-LZVmvKlchM0-unsplash.jpg", 1/*flip vertically*/ ) ) {
 			if ( !gl::load_texture( m_fb1.get_tex(), m_fb1.get_size(), "../sophie-turner-LZVmvKlchM0-unsplash.jpg", 1/*flip vertically*/ ) ) {
 				fprintf( stderr, "load_texture(): error\n" );
@@ -58,6 +52,7 @@ public:
 			}
 		}
 
+		// compile shaders...
 		if ( !m_vert.compile_from_file( "blur.vert" ) ||
 			 !m_frag.compile_from_file( "blur.frag" ) )
 		{
@@ -77,7 +72,7 @@ public:
 
 		m_prog.uniform( "u_tex", 0 );
 
-		//glUseProgram( 123 ); // test debug context error handling
+		glUseProgram( 123 ); // test debug context error handling
 	}
 
 	virtual ~window() {
@@ -107,7 +102,7 @@ public:
 		{
 			ImGui::SetNextWindowPos( ImVec2( 10, 10 ), ImGuiCond_FirstUseEver );
 			ImGui::SetNextWindowSize( ImVec2( 300, 0 ), ImGuiCond_FirstUseEver );
-			ImGui::Begin( "Gaussian blur" );
+			ImGui::Begin( "Gaussian blur kernel" );
 			{
 				static int		radius		= 20;
 				static float	sigma_coeff	= 2.5;
@@ -133,21 +128,22 @@ public:
 
 		glDisable( GL_MULTISAMPLE );
 
+		m_prog.uniform( "u_viewport", fb );
 		m_prog.uniform( "u_radius", m_kernel.get_radius() );
 
 		// We need only one half of kernel
 		m_prog.uniform( "u_kernel", m_kernel.get_values() + m_kernel.get_radius(), m_kernel.get_radius() );
 
-		m_prog.uniform( "u_viewport", fb );
-
-		// hor.
-		m_prog.uniform( "u_direction", glm::vec2( 0, 1 ) );
+		// hor. blur (1st pass)
+		// fb1 --> fb2
+		m_prog.uniform( "u_direction", glm::vec2( 1, 0 ) );
 		m_fb1.bind_as_tex( 0 /*active texture*/ );
 		m_fb2.bind_as_fbo();
 		m_quad.draw();
 
-		// vert.
-		m_prog.uniform( "u_direction", glm::vec2( 1, 0 ) );
+		// vert. blur (2nd pass)
+		// fb2 --> screen
+		m_prog.uniform( "u_direction", glm::vec2( 0, 1 ) );
 		m_fb2.bind_as_tex( 0 /*active texture*/ );
 		glBindFramebuffer( GL_FRAMEBUFFER, 0 );
 		m_quad.draw();
