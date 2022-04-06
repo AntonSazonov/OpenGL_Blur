@@ -89,7 +89,6 @@ public:
 		glfwMakeContextCurrent( m_window );
 
 		int version = gladLoadGL( glfwGetProcAddress );
-		//int version = gladLoaderLoadGL();
 		if ( !version ) {
 			printf( "Failed to initialize OpenGL context\n" );
 			return;
@@ -164,14 +163,7 @@ public:
 		glDisable( GL_CULL_FACE );
 		glDisable( GL_DEPTH_TEST );
 
-		if ( glfwExtensionSupported( "WGL_EXT_swap_control_tear" ) == GLFW_TRUE ||
-			 glfwExtensionSupported( "GLX_EXT_swap_control_tear" ) == GLFW_TRUE )
-		{
-			printf( "Extension EXT_swap_control_tear is supported.\n" );
-			glfwSwapInterval( -1 );
-		} else {
-			glfwSwapInterval( 1 );
-		}
+		glfwSwapInterval( 1 );
 
 		m_is_valid = true;
 	}
