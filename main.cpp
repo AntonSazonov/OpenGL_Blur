@@ -53,11 +53,11 @@ public:
 		}
 
 		// compile shaders...
-		if ( !m_vert.compile_from_file( "blur.vert" ) ||
-			 !m_frag.compile_from_file( "blur.frag" ) )
+		if ( !m_vert.compile_from_file( "shader/blur.vert" ) ||
+			 !m_frag.compile_from_file( "shader/blur.frag" ) )
 		{
-			if ( !m_vert.compile_from_file( "../blur.vert" ) ||
-				 !m_frag.compile_from_file( "../blur.frag" ) )
+			if ( !m_vert.compile_from_file( "../shader/blur.vert" ) ||
+				 !m_frag.compile_from_file( "../shader/blur.frag" ) )
 			{
 				fprintf( stderr, "Shader compile error.\n" );
 				close();
