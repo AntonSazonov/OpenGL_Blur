@@ -64,10 +64,6 @@ public:
 		RETURN_IF( !(m_window = glfwCreateWindow( size.x, size.y, title, nullptr, nullptr )) );
 		glfwSetWindowUserPointer( m_window, this );
 
-//		int w, h;
-//		glfwGetFramebufferSize( m_window, &w, &h );
-//		printf( "w = %d, h = %d\n", w, h );
-
 		glfwSetWindowSizeCallback( m_window, []( GLFWwindow * p_wnd, int width, int height ) {
 				auto p_this = static_cast<decltype( this )>( glfwGetWindowUserPointer( p_wnd ) );
 				if ( p_this ) p_this->on_resize( glm::ivec2( width, height ) );
@@ -167,20 +163,7 @@ public:
 		glDisable( GL_MULTISAMPLE );
 		glDisable( GL_CULL_FACE );
 		glDisable( GL_DEPTH_TEST );
-		//glDepthFunc( GL_LEQUAL );
 
-#if 0
-		int n_exts = 0;
-		glGetIntegerv( GL_NUM_EXTENSIONS, &n_exts );
-		printf( "n_exts: %d\n", n_exts );
-		printf( "p_exts:\n" );
-		for ( int i = 0; i < n_exts; i++ ) {
-			printf( " %s\n", glGetStringi( GL_EXTENSIONS, i ) );
-		}
-		return;
-#endif
-
-#if 1
 		if ( glfwExtensionSupported( "WGL_EXT_swap_control_tear" ) == GLFW_TRUE ||
 			 glfwExtensionSupported( "GLX_EXT_swap_control_tear" ) == GLFW_TRUE )
 		{
@@ -189,7 +172,6 @@ public:
 		} else {
 			glfwSwapInterval( 1 );
 		}
-#endif
 
 		m_is_valid = true;
 	}
@@ -202,6 +184,8 @@ public:
 
 	explicit operator bool () const { return m_is_valid; }
 
+	virtual void on_key( int /*key*/, int /*scancode*/, int /*action*/, int /*mods*/ ) {}
+	virtual void on_resize( const glm::ivec2 & size ) { printf( "on_resize(): %dx%d", size.x, size.y ); }
 	virtual void on_frame( double /*time*/, const glm::ivec2 & /*framebuffer*/, const glm::ivec2 & /*mouse*/ ) = 0;
 
 	GLFWwindow * get_window() { return m_window; }
@@ -213,11 +197,8 @@ public:
 	void run( bool wait = false ) {
 		if ( operator bool () ) {
 			if ( !glfwWindowShouldClose( m_window ) ) { // check for early exit
-				glfwShowWindow( m_window ); // calls resize_callback
+				glfwShowWindow( m_window );
 				while ( !glfwWindowShouldClose( m_window ) ) {
-
-					int win_width, win_height;
-					glfwGetWindowSize( m_window, &win_width, &win_height );
 
 					int fb_width, fb_height;
 					glfwGetFramebufferSize( m_window, &fb_width, &fb_height );
@@ -225,7 +206,7 @@ public:
 					double mx, my;
 					glfwGetCursorPos( m_window, &mx, &my );
 
-					this->on_frame( glfwGetTime(), glm::ivec2( fb_width, fb_height ), glm::ivec2( win_width, win_height ), glm::ivec2( mx, my ) );
+					this->on_frame( glfwGetTime(), glm::ivec2( fb_width, fb_height ), glm::ivec2( mx, my ) );
 					glfwSwapBuffers( m_window );
 					if ( wait ) {
 						glfwWaitEvents();
