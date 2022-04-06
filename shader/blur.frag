@@ -27,4 +27,7 @@ void main() {
 		r += dir;
 	}
 	o_color = vec4( res, 1 );
+
+	// post-fx
+	o_color.rgb *= .25 + .75 * pow( 16. * uv.x * uv.y * (1. - uv.x) * (1. - uv.y), .2 );
 }
