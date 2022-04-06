@@ -202,7 +202,7 @@ public:
 
 	explicit operator bool () const { return m_is_valid; }
 
-	virtual void on_frame( double /*time*/, const glm::ivec2 & /*framebuffer*/, const glm::ivec2 & /*window*/, const glm::ivec2 & /*mouse*/ ) = 0;
+	virtual void on_frame( double /*time*/, const glm::ivec2 & /*framebuffer*/, const glm::ivec2 & /*mouse*/ ) = 0;
 
 	GLFWwindow * get_window() { return m_window; }
 

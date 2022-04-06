@@ -94,7 +94,7 @@ public:
 		}
 	}
 
-	void on_frame( double time, const glm::ivec2 & fb, const glm::ivec2 & win, const glm::ivec2 & mouse ) override {
+	void on_frame( double time, const glm::ivec2 & fb, const glm::ivec2 & /*mouse*/ ) override {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
