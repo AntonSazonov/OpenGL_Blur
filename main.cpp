@@ -134,24 +134,19 @@ public:
 		glDisable( GL_MULTISAMPLE );
 
 		m_prog.uniform( "u_radius", m_kernel.get_radius() );
+
+		// We need only one half of kernel
 		m_prog.uniform( "u_kernel", m_kernel.get_values() + m_kernel.get_radius(), m_kernel.get_radius() );
 
-		m_prog.uniform( "u_mouse", glm::ivec2( mouse.x, fb.y - mouse.y - 1 ) );
 		m_prog.uniform( "u_viewport", fb );
 
-		m_prog.uniform( "u_pos",  glm::vec2( 0.f, 0.f ) );
-		m_prog.uniform( "u_size", glm::vec2( 1.f, 1.f ) );
-
-
 		// hor.
-		m_prog.uniform( "u_pass", 1 );
 		m_prog.uniform( "u_direction", glm::vec2( 0, 1 ) );
 		m_fb1.bind_as_tex( 0 /*active texture*/ );
 		m_fb2.bind_as_fbo();
 		m_quad.draw();
 
 		// vert.
-		m_prog.uniform( "u_pass", 2 );
 		m_prog.uniform( "u_direction", glm::vec2( 1, 0 ) );
 		m_fb2.bind_as_tex( 0 /*active texture*/ );
 		glBindFramebuffer( GL_FRAMEBUFFER, 0 );

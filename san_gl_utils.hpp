@@ -33,9 +33,6 @@ bool load_texture( GLuint tex_id, const glm::ivec2 & size, const char * filename
 	return false;
 }
 
-// s:  1.25  2.5   5   10  12.5
-// r:    5    10   20  40   50
-// s = r / 4
 template <unsigned MaxRadius = 64>
 class gaussian_blur_kernel {
 public:
