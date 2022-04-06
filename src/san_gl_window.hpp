@@ -5,7 +5,6 @@
  #define SAN_GL_45
 #endif
 
-//#define GLAD_GL_IMPLEMENTATION
 #include <glad/gl.h>
 
 #define GLFW_INCLUDE_NONE
@@ -17,7 +16,6 @@
 
 namespace san::gl {
 
-#define TRACE()				printf( "%s\n", __PRETTY_FUNCTION__ )
 #define RETURN_IF( expr )	if ( (expr) ) { fprintf( stderr, "Error: %s\n", #expr ); return; }
 
 class window {
@@ -204,8 +202,6 @@ public:
 
 	explicit operator bool () const { return m_is_valid; }
 
-	virtual void on_resize( const glm::ivec2 & /*size*/ ) { TRACE(); }
-	virtual void on_key( int /*key*/, int /*scancode*/, int /*action*/, int /*mods*/ ) { TRACE(); }
 	virtual void on_frame( double /*time*/, const glm::ivec2 & /*framebuffer*/, const glm::ivec2 & /*window*/, const glm::ivec2 & /*mouse*/ ) = 0;
 
 	GLFWwindow * get_window() { return m_window; }
