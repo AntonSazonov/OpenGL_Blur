@@ -1,5 +1,7 @@
+build/
 *.cmd
 Makefile
+z
 
 # Prerequisites
 *.d

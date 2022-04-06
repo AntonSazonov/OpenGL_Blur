@@ -51,17 +51,23 @@ public:
 		ImGui_ImplOpenGL3_Init( "#version 130" );
 
 		if ( !gl::load_texture( m_fb1.get_tex(), m_fb1.get_size(), "sophie-turner-LZVmvKlchM0-unsplash.jpg", 1/*flip vertically*/ ) ) {
-			fprintf( stderr, "load_texture(): error\n" );
-			close();
-			return;
+			if ( !gl::load_texture( m_fb1.get_tex(), m_fb1.get_size(), "../sophie-turner-LZVmvKlchM0-unsplash.jpg", 1/*flip vertically*/ ) ) {
+				fprintf( stderr, "load_texture(): error\n" );
+				close();
+				return;
+			}
 		}
 
 		if ( !m_vert.compile_from_file( "blur.vert" ) ||
 			 !m_frag.compile_from_file( "blur.frag" ) )
 		{
-			fprintf( stderr, "Shader compile error.\n" );
-			close();
-			return;
+			if ( !m_vert.compile_from_file( "../blur.vert" ) ||
+				 !m_frag.compile_from_file( "../blur.frag" ) )
+			{
+				fprintf( stderr, "Shader compile error.\n" );
+				close();
+				return;
+			}
 		}
 
 		m_prog.attach( m_vert );
