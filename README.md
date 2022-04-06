@@ -1,6 +1,8 @@
 # OpenGL GLSL Blur Example
 
-Dependencies: [GLFW](https://www.glfw.org/), [GLM](https://github.com/g-truc/glm)
+Clone:
+`git clone --recurse-submodules https://github.com/AntonSazonov/OpenGL_GLSL_Blur.git`
+
 
 Build with CMake:
 ```
