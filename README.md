@@ -1,4 +1,4 @@
-# OpenGL Blur Example
+# OpenGL GLSL Blur Example
 
 Build with CMake:
 ```
