@@ -7,6 +7,7 @@ git clone --recurse-submodules https://github.com/AntonSazonov/OpenGL_GLSL_Blur.
 
 Build with CMake:
 ```
+cd OpenGL_GLSL_Blur
 cmake -B build .
 cmake --build build
 ```
