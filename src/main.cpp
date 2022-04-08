@@ -1,9 +1,9 @@
 ﻿
 #include <cstdio>
 
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
 
 // For 3.3 core context, if not - use 4.5
 #define SAN_GL_33
