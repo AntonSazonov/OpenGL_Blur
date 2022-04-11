@@ -1,4 +1,4 @@
-# OpenGL GLSL Blur Example
+# OpenGL GLSL Gaussian Blur Example
 
 Clone:
 ```bash
