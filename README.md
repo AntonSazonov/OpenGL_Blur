@@ -1,3 +1,5 @@
+[![GitHub code size](https://img.shields.io/github/languages/code-size/AntonSazonov/OpenGL_GLSL_Blur?style=flat)](https://github.com/AntonSazonov/OpenGL_GLSL_Blur)
+
 # OpenGL GLSL Blur Example
 
 Clone:
