@@ -1,3 +1,4 @@
+
 cmake_minimum_required( VERSION 3.10 )
 
 project( Blur_Example )
@@ -10,15 +11,17 @@ add_subdirectory( deps/glm )
 add_subdirectory( deps/imgui )
 
 add_executable( Blur_Example src/main.cpp src/san_gl_utils.cpp src/san_gl_window.cpp )
+add_dependencies( Blur_Example glfw glm imgui )
 
-target_include_directories( imgui PRIVATE ${PROJECT_SOURCE_DIR}/deps/glfw/include )
-target_include_directories( Blur_Example PRIVATE ${PROJECT_SOURCE_DIR}/deps/glfw/include )
-target_include_directories( Blur_Example PRIVATE ${PROJECT_SOURCE_DIR}/deps )
+target_link_libraries( Blur_Example PRIVATE glfw3 glm imgui )
 
-target_link_directories( Blur_Example PUBLIC ${PROJECT_BINARY_DIR}/deps/glfw/src )
+target_include_directories( imgui PRIVATE ${GLFW_SOURCE_DIR}/include )
+
+target_include_directories( Blur_Example PRIVATE ${GLFW_SOURCE_DIR}/include )
+target_include_directories( Blur_Example PRIVATE deps )
+
+target_link_directories( Blur_Example PRIVATE ${GLFW_BINARY_DIR}/src )
 
 # For MSVS
-target_link_directories( Blur_Example PUBLIC ${PROJECT_BINARY_DIR}/deps/glfw/src/Debug )
-target_link_directories( Blur_Example PUBLIC ${PROJECT_BINARY_DIR}/deps/glfw/src/Release )
-
-target_link_libraries( Blur_Example glfw3 glm imgui )
+target_link_directories( Blur_Example PRIVATE ${GLFW_BINARY_DIR}/src/Debug )
+target_link_directories( Blur_Example PRIVATE ${GLFW_BINARY_DIR}/src/Release )
