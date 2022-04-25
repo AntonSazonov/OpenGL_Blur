@@ -22,7 +22,7 @@ class window {
 	bool			m_is_valid	= false;
 	GLFWwindow *	m_window	= nullptr;
 
-#ifdef __GNUG__
+#if defined( __GNUG__ ) && defined( WIN32 )
 	__attribute__ (( stdcall ))
 #endif
 	static void debug_callback( GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * p_message, const void * p_user /*user param.*/ ) {
