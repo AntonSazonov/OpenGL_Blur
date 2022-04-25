@@ -108,13 +108,6 @@ public:
 		if ( m_id ) glUseProgram( m_id );
 		return *this;
 	}
-	//void unbind() const { glUseProgram( 0 ); }
-
-#if 0
-	void uniform( const char * name, int v ) {
-		if ( m_id ) glUniform1i( glGetUniformLocation( m_id, name ), v );
-	}
-#endif
 
 #if 1
 #define UNIFORM_V glGetUniformLocation( m_id, name ), 1, glm::value_ptr( v )

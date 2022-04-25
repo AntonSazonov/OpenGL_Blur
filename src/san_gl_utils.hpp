@@ -9,14 +9,12 @@ bool load_texture( GLuint tex_id, const glm::ivec2 & size, const char * filename
 	int w, h, n;
 	stbi_set_flip_vertically_on_load( flip_verticaly ); // flip verticaly for OpenGL coordinate system
 	uint8_t * p_src = stbi_load( filename, &w, &h, &n, 0 );
-	//printf( "load_texture(): n = %d\n", n );
 	if ( p_src ) {
 		/// resize...
 		uint8_t * p_dst = new (std::nothrow) uint8_t [size.x * size.y * n];
 		if ( p_dst ) {
 			if ( stbir_resize_uint8( p_src, w, h, 0, p_dst, size.x, size.y, 0, n ) ) {
 				glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
-				//glPixelStorei( GL_UNPACK_ROW_LENGTH, -size.x );
 #ifdef SAN_GL_33
 				glBindTexture( GL_TEXTURE_2D, tex_id );
 				//glActiveTexture( 0 );

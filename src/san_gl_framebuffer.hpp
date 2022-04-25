@@ -1,8 +1,5 @@
 ﻿#pragma once
 
-//#include <memory>
-//#include <glm/gtc/type_ptr.hpp>
-
 namespace san::gl {
 
 class framebuffer {
@@ -13,7 +10,6 @@ class framebuffer {
 	glm::ivec2	m_size;
 
 public:
-
 	framebuffer( const glm::ivec2 & size ) : m_size( size ) {
 
 #ifdef SAN_GL_33
@@ -23,7 +19,6 @@ public:
 		glObjectLabel( GL_TEXTURE, m_tex, 5, "m_tex" );
 
 		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA8, m_size.x, m_size.y, 0/*border*/, GL_RGB, GL_UNSIGNED_BYTE, nullptr ); // since 2.0
-		//glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, m_size.x, m_size.y, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, nullptr );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
@@ -79,9 +74,7 @@ public:
 	auto get_fbo() -> GLuint { return m_fbo; }
 
 	void update( uint8_t * p_data ) {
-		// save and restore texture binding?
 		glBindTexture( GL_TEXTURE_2D, m_tex );
-		//glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
 		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA8, m_size.x, m_size.y, 0/*border*/, GL_RGB, GL_UNSIGNED_BYTE, p_data ); // since 2.0
 	}
 
