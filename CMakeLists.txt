@@ -21,4 +21,4 @@ target_link_directories( Blur_Example PUBLIC ${PROJECT_BINARY_DIR}/deps/glfw/src
 target_link_directories( Blur_Example PUBLIC ${PROJECT_BINARY_DIR}/deps/glfw/src/Debug )
 target_link_directories( Blur_Example PUBLIC ${PROJECT_BINARY_DIR}/deps/glfw/src/Release )
 
-target_link_libraries( Blur_Example imgui glm glfw3 )
+target_link_libraries( Blur_Example glfw3 glm imgui )
