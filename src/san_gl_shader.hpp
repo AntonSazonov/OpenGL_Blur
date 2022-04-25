@@ -44,7 +44,10 @@ public:
 				fseek( fp, 0, SEEK_SET );
 				char * p_data = new (std::nothrow) char [size + 1];
 				if ( p_data ) {
-					fread( p_data, size, 1, fp );
+					if ( fread( p_data, size, 1, fp ) != 1 ) {
+						fprintf( stderr, "fread(): error\n" );
+						return false;
+					}
 					p_data[size] = '\0';
 					result = compile_from_string( p_data );
 					delete [] p_data;
