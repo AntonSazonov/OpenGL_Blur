@@ -2,7 +2,8 @@
 
 #define MAX_RADIUS	64
 
-layout (binding = 0) uniform sampler2D u_tex;
+//layout (binding = 0)
+uniform sampler2D	u_tex;
 
 uniform	int			u_radius;
 uniform float		u_kernel[MAX_RADIUS];
@@ -10,7 +11,7 @@ uniform float		u_kernel[MAX_RADIUS];
 uniform	ivec2		u_viewport;
 uniform	vec2		u_direction;
 
-uniform	int			u_post_fx;
+uniform	int			u_fade_fx;
 
 in vec4				gl_FragCoord;
 
@@ -30,8 +31,8 @@ void main() {
 	}
 	o_color = vec4( res, 1 );
 
-	// post-fx
-	if ( u_post_fx ) {
+	// Fade-FX
+	if ( u_fade_fx ) {
 		o_color.rgb *= .25 + .75 * pow( 16. * uv.x * uv.y * (1. - uv.x) * (1. - uv.y), .2 );
 	}
 }

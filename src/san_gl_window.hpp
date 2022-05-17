@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-// Supported contects are: 3.3 core or 4.5 core
+// Supported contexts are: 3.3 core or 4.5 core
 #ifndef SAN_GL_33
  #define SAN_GL_45
 #endif
