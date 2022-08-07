@@ -6,7 +6,7 @@
 
 Clone:
 ```bash
-git clone --recurse-submodules https://github.com/AntonSazonov/OpenGL_GLSL_Blur.git
+git clone --recursive https://github.com/AntonSazonov/OpenGL_GLSL_Blur.git
 ```
 
 Build with CMake:
