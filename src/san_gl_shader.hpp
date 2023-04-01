@@ -21,7 +21,7 @@ public:
 			glCompileShader( m_id );
 			glGetShaderiv( m_id, GL_COMPILE_STATUS, &status );
 			if ( status != GL_TRUE ) {
-				int len;
+				int len = 0;
 				glGetShaderiv( m_id, GL_INFO_LOG_LENGTH, &len );
 				if ( len ) {
 					char * p_log = new (std::nothrow) char [len + 1];
@@ -88,6 +88,7 @@ public:
 	virtual ~prog() { if ( m_id ) glDeleteProgram( m_id ); }
 
 	void attach( const base & shader ) { glAttachShader( m_id, shader.m_id ); }
+	void detach( const base & shader ) { glDetachShader( m_id, shader.m_id ); }
 
 	bool link() {
 		GLint status = GL_FALSE;
@@ -97,6 +98,15 @@ public:
 			if ( status == GL_TRUE ) {
 				glValidateProgram( m_id );
 				glGetProgramiv( m_id, GL_VALIDATE_STATUS, &status );
+			} else {
+				int len = 0;
+				glGetProgramiv( m_id, GL_INFO_LOG_LENGTH, &len );
+				if ( len ) {
+					char * p_log = new (std::nothrow) char [len + 1];
+					glGetProgramInfoLog( m_id, len, nullptr, p_log );
+					fprintf( stderr, "%s\n", p_log );
+					delete [] p_log;
+				}
 			}
 		}
 		return status == GL_TRUE;

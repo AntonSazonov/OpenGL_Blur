@@ -61,9 +61,17 @@ public:
 
 		m_prog.attach( m_vert );
 		m_prog.attach( m_frag );
-		m_prog.link();
-		m_prog.bind();
 
+		if ( !m_prog.link() ) {
+			fprintf( stderr, "Shader link error.\n" );
+			close();
+			return;
+		}
+
+		// Always detach shaders after a successful link.
+		m_prog.detach( m_vert );
+		m_prog.detach( m_frag );
+		m_prog.bind();
 		m_prog.uniform( "u_tex", 0 );
 
 		glUseProgram( 123 ); // Test debug context error handling.
