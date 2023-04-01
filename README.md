@@ -2,7 +2,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/AntonSazonov/OpenGL_GLSL_Blur)](https://github.com/AntonSazonov/OpenGL_GLSL_Blur/issues)
 ![example workflow](https://github.com/AntonSazonov/OpenGL_GLSL_Blur/actions/workflows/cmake.yml/badge.svg)
 
-# OpenGL GLSL Blur Example
+# OpenGL GLSL Gaussian Blur Example
 
 Clone:
 ```bash
