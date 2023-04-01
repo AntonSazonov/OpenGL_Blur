@@ -115,7 +115,7 @@ public:
 
 		glfwWindowHint( GLFW_DOUBLEBUFFER, GLFW_TRUE );
 
-		glfwWindowHint( GLFW_SAMPLES, 0 );
+		glfwWindowHint( GLFW_SAMPLES, 4 );
 		glfwWindowHint( GLFW_DEPTH_BITS, 0 );
 		glfwWindowHint( GLFW_STENCIL_BITS, 8 );
 

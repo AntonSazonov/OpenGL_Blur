@@ -17,8 +17,6 @@
 using namespace san;
 
 class window : public gl::window {
-	float				m_max_fps	= 0.f;
-
 	gl::vao_quad		m_quad;	// dummy quad
 
 	gl::framebuffer		m_fb1;
@@ -78,16 +76,8 @@ public:
 	}
 
 	void on_key( int key, int scancode, int action, int mods ) override {
-		if ( action != GLFW_PRESS ) return;
-		switch ( key ) {
-			case GLFW_KEY_ESCAPE: close(); break;
-
-			case GLFW_KEY_SPACE: {
-				static int swap_interval = 1;
-				swap_interval ^= 1;
-				glfwSwapInterval( swap_interval );
-			} break;
-		}
+		if ( action == GLFW_PRESS &&
+				key == GLFW_KEY_ESCAPE ) close();
 	}
 
 	void on_frame( double time, const glm::ivec2 & fb, const glm::ivec2 & /*mouse*/ ) override {
@@ -103,7 +93,7 @@ public:
 				static int		radius		= 20;
 				static float	sigma_coeff	= 2.5;
 
-				ImGui::SliderInt( "Radius", &radius, 1, 64 );
+				ImGui::SliderInt( "Radius", &radius, 2, 64 );
 				ImGui::SliderFloat( "Sigma coeff.", &sigma_coeff, 2.f, 5.f );
 
 				m_kernel.set_sigma_coeff( sigma_coeff );
@@ -115,19 +105,18 @@ public:
 
 				static bool vsync = true;
 				ImGui::Checkbox( "V-Sync", &vsync );
-				glfwSwapInterval( vsync ? 1 : 0 );
+				glfwSwapInterval( int(vsync) );
 
 				ImGui::Text( "-------------------------" );
 				ImGui::Text( "%.3f ms/f. (%.1f FPS)", 1000.f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate );
 			}
 			ImGui::End();
 
-			if ( ImGui::GetIO().Framerate > m_max_fps ) m_max_fps = ImGui::GetIO().Framerate;
-			if ( time > 3 ) fprintf( stderr, "\r%5.2f ms/f., %7.2f FPS (max.: %7.2f)", 1000.f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate, m_max_fps );
+			if ( time > 3 ) fprintf( stderr, "\r%5.2f ms/f., %7.2f FPS", 1000.f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate );
 		}
 
+		// No multisampling while blur.
 		glDisable( GL_MULTISAMPLE );
-
 		m_prog.uniform( "u_viewport", fb );
 		m_prog.uniform( "u_radius", m_kernel.get_radius() );
 
@@ -148,6 +137,7 @@ public:
 		glBindFramebuffer( GL_FRAMEBUFFER, 0 );
 		m_quad.draw();
 
+		// Histogram looks more smoother with multisampling.
 		glEnable( GL_MULTISAMPLE );
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData( ImGui::GetDrawData() );

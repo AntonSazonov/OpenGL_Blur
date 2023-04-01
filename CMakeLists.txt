@@ -15,7 +15,16 @@ add_subdirectory( deps/glfw )
 add_subdirectory( deps/glm )
 add_subdirectory( deps/imgui )
 
-add_executable( ${TOP_LEVEL_PROJECT_NAME} src/main.cpp src/san_gl_utils.cpp src/san_gl_window.cpp )
+add_executable( ${TOP_LEVEL_PROJECT_NAME}
+	src/main.cpp
+	src/san_gl_framebuffer.hpp
+	src/san_gl_shader.hpp
+	src/san_gl_utils.cpp
+	src/san_gl_utils.hpp
+	src/san_gl_vao.hpp
+	src/san_gl_window.cpp
+	src/san_gl_window.hpp )
+
 add_dependencies( ${TOP_LEVEL_PROJECT_NAME} glfw glm imgui )
 
 # Output executable to root directory
