@@ -54,7 +54,7 @@ public:
 				}
 				fclose( fp );
 			} else {
-				fprintf( stderr, "compile_from_shader(): can't open %s\n", file_name );
+				fprintf( stderr, "compile_from_shader(): can't compile %s\n", file_name );
 			}
 		}
 		return result;
