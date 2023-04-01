@@ -7,7 +7,6 @@ project( ${TOP_LEVEL_PROJECT_NAME} )
 
 set( CMAKE_CXX_STANDARD 17 )
 set( CMAKE_CXX_STANDARD_REQUIRED ON )
-set( THREADS_PREFER_PTHREAD_FLAG ON )
 
 find_package( Threads REQUIRED )
 
@@ -30,7 +29,7 @@ add_dependencies( ${TOP_LEVEL_PROJECT_NAME} glfw glm imgui )
 # Output executable to root directory
 set_target_properties( ${TOP_LEVEL_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}" )
 
-target_link_libraries( ${TOP_LEVEL_PROJECT_NAME} PRIVATE glfw3 glm imgui ${CMAKE_DL_LIBS} Threads::Threads )
+target_link_libraries( ${TOP_LEVEL_PROJECT_NAME} PRIVATE glfw3 glm imgui ${CMAKE_DL_LIBS} )
 
 target_include_directories( imgui PRIVATE ${GLFW_SOURCE_DIR}/include )
 
