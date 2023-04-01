@@ -117,10 +117,6 @@ public:
 				ImGui::Checkbox( "V-Sync", &vsync );
 				glfwSwapInterval( vsync ? 1 : 0 );
 
-				static bool post_fx = true;
-				ImGui::Checkbox( "Fade-FX", &post_fx );
-				m_prog.uniform( "u_fade_fx", post_fx ? 1 : 0 );
-
 				ImGui::Text( "-------------------------" );
 				ImGui::Text( "%.3f ms/f. (%.1f FPS)", 1000.f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate );
 			}
