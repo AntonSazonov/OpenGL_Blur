@@ -56,13 +56,9 @@ public:
 		if ( !m_vert.compile_from_file( "shader/blur.vert" ) ||
 			 !m_frag.compile_from_file( "shader/blur.frag" ) )
 		{
-			if ( !m_vert.compile_from_file( "../shader/blur.vert" ) ||
-				 !m_frag.compile_from_file( "../shader/blur.frag" ) )
-			{
-				fprintf( stderr, "Shader compile error.\n" );
-				close();
-				return;
-			}
+			fprintf( stderr, "Shader compile error.\n" );
+			close();
+			return;
 		}
 
 		m_prog.attach( m_vert );
@@ -72,7 +68,7 @@ public:
 
 		m_prog.uniform( "u_tex", 0 );
 
-		glUseProgram( 123 ); // test debug context error handling
+		glUseProgram( 123 ); // Test debug context error handling.
 	}
 
 	virtual ~window() {
